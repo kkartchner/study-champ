@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,19 +12,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_145617) do
-
+ActiveRecord::Schema.define(version: 20_210_326_145_617) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "study_plans", force: :cascade do |t|
-    t.string "title", limit: 50
-    t.integer "points"
-    t.bit "study_days_string", limit: 7
-    t.date "start_date"
-    t.date "end_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'study_plans', force: :cascade do |t|
+    t.string 'title', limit: 50
+    t.integer 'points'
+    t.bit 'study_days_string', limit: 7
+    t.date 'start_date'
+    t.date 'end_date'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
-
 end
