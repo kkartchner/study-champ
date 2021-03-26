@@ -1,0 +1,30 @@
+### Index
+GET http://localhost:3000/api/v1/study_tasks
+
+### Show
+GET http://localhost:3000/api/v1/study_tasks/1
+
+### Create
+POST http://localhost:3000/api/v1/study_tasks
+Content-Type: application/json
+
+{
+    "startPoint": "1",
+    "endPoint": "10",
+    "dueDate": "2021-03-26",
+    "studyPlanId": "10"
+}
+
+### Update
+PUT http://localhost:3000/api/v1/study_tasks/1
+Content-Type: application/json
+
+{
+    "startPoint": "2",
+    "endPoint": "10",
+    "dueDate": "2021-03-25",
+    "studyPlanId": "10"
+}
+
+### Destroy
+DELETE http://localhost:3000/api/v1/study_tasks/2
