@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # File: config/initializers/json_param_key_transform.rb
 # Transform JSON request param keys from JSON-conventional camelCase to
 # Rails-conventional snake_case:
