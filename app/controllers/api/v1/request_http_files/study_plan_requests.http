@@ -9,9 +9,11 @@ POST http://localhost:3000/api/v1/study_plans
 Content-Type: application/json
 
 {
-    "title": "New Plan",
-    "points": "100",
-    "studyDaysString": "0111111"
+    "title": "The Challenging Challenge",
+    "points": "1200",
+    "studyDaysString": "0111111",
+    "startDate": "2021-03-12",
+    "endDate": "2021-03-31"
 }
 
 ### Update
