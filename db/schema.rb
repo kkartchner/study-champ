@@ -10,30 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_326_215_004) do
+ActiveRecord::Schema.define(version: 2021_03_27_192814) do
+
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
 
-  create_table 'study_plans', force: :cascade do |t|
-    t.string 'title', limit: 50
-    t.integer 'points'
-    t.bit 'study_days_string', limit: 7
-    t.date 'start_date'
-    t.date 'end_date'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "study_plans", force: :cascade do |t|
+    t.string "title", limit: 50
+    t.integer "points"
+    t.bit "study_days_string", limit: 7
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table 'study_tasks', force: :cascade do |t|
-    t.integer 'start_point'
-    t.integer 'end_point'
-    t.date 'due_date'
-    t.bit 'is_complete', limit: 1
-    t.bigint 'study_plan_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['study_plan_id'], name: 'index_study_tasks_on_study_plan_id'
+  create_table "study_tasks", force: :cascade do |t|
+    t.integer "start_point"
+    t.integer "end_point"
+    t.date "due_date"
+    t.bit "is_complete", limit: 1
+    t.bigint "study_plan_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["study_plan_id"], name: "index_study_tasks_on_study_plan_id"
   end
 
-  add_foreign_key 'study_tasks', 'study_plans'
+  create_table "subtasks", force: :cascade do |t|
+    t.bigint "study_task_id", null: false
+    t.integer "point"
+    t.bit "is_complete", limit: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["study_task_id"], name: "index_subtasks_on_study_task_id"
+  end
+
+  add_foreign_key "study_tasks", "study_plans"
+  add_foreign_key "subtasks", "study_tasks"
 end
