@@ -4,6 +4,18 @@ class StudyPlan < ApplicationRecord
   has_many :study_tasks
   after_save :generate_tasks
 
+  def total_study_days
+    study_tasks.count
+  end
+
+  def whole_points_per_day
+    points / total_study_days
+  end
+
+  def extra_points
+    points % total_study_days
+  end
+
   def generate_tasks
     return if start_date.blank? || end_date.blank?
 
@@ -23,6 +35,7 @@ class StudyPlan < ApplicationRecord
     BusinessTime::Config.work_week = work_week_days
     study_dates = start_date.business_dates_until(end_date + 1.day)
     total_study_days = study_dates.length
+
     whole_points_per_day = points / total_study_days
     extra_points = points % total_study_days
 
