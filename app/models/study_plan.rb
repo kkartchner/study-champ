@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StudyPlan < ApplicationRecord
-  has_many :study_tasks
+  has_many :study_tasks, dependent: :delete_all
   after_save :generate_tasks
 
   def total_study_days

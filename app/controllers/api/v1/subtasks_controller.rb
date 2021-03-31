@@ -53,13 +53,6 @@ module Api
       def subtask_params
         params.permit(:study_task_id, :point)
       end
-
-      def find_resource(_id, &callback)
-        subtask = Subtask.find(params[:id])
-        callback.call(subtask)
-      rescue StandardError
-        render json: { status: 'ERROR', message: 'Resource not found' }, status: :not_found
-      end
     end
   end
 end

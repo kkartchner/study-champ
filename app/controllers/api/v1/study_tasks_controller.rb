@@ -53,13 +53,6 @@ module Api
       def study_task_params
         params.permit(:start_point, :end_point, :due_date, :study_plan_id)
       end
-
-      def find_resource(_id, &callback)
-        study_task = StudyTask.find(params[:id])
-        callback.call(study_task)
-      rescue StandardError
-        render json: { status: 'ERROR', message: 'Resource not found' }, status: :not_found
-      end
     end
   end
 end
