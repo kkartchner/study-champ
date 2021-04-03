@@ -20,14 +20,9 @@ module Api
         study_plan = StudyPlan.new(study_plan_params)
 
         if study_plan.save
-
           # TODO: incorporate a translator so api returns data in camelCase
           render json: { status: 'SUCCESS', message: 'Study plan created',
-                         data: { **study_plan.attributes,
-                           study_info: { total_study_days: study_plan.total_study_days,
-                                         whole_points_per_day: study_plan.whole_points_per_day,
-                                         extra_points: study_plan.extra_points },
-                           study_tasks: study_plan.study_tasks } },
+                         data: { **study_plan.attributes, study_tasks: study_plan.study_tasks } },
                  status: :ok
         else
           render json: { status: 'ERROR', message: 'Study plan not saved',
@@ -53,6 +48,20 @@ module Api
           render json: { status: 'SUCCESS', message: 'Study plan deleted', data: study_plan },
                  status: :ok
         end
+      end
+
+      def start_fresh
+        # find_resource(params[:id]) do |_study_plan|
+        if params[:id]
+          # refresh specific plan with the id
+          find_resource(params[:id]) do |study_plan|
+            study_plan.start_fresh
+          end
+        else
+          # loop through users plans and start fresh on all of them
+        end
+
+        render json: { status: 'SUCCESS', message: 'Study plan refreshed' }
       end
 
       private
