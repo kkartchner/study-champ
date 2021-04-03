@@ -31,6 +31,20 @@ module Api
       def update
         find_resource(params[:id]) do |study_task|
           if study_task.update(study_task_params)
+            furthest_completed_point = study_task.study_plan.furthest_completed_point
+            is_complete = study_task.is_complete == '1'
+
+            if is_complete && study_task.end_point > furthest_completed_point
+              furthest_completed_point = study_task.end_point
+
+            elsif !is_complete && study_task.end_point == furthest_completed_point
+              # no longer the furthest, so update to next furthest point
+              furthest_completed_point = StudyTask.where(is_complete: 1).order(:end_point)
+                                                  .last&.end_point || 0
+            end
+
+            study_task.study_plan.update({ furthest_completed_point: furthest_completed_point })
+
             render json: { status: 'SUCCESS', message: 'Study task updated', data: study_task },
                    status: :ok
           else
@@ -51,14 +65,7 @@ module Api
       private
 
       def study_task_params
-        params.permit(:start_point, :end_point, :due_date, :study_plan_id)
-      end
-
-      def find_resource(_id, &callback)
-        study_task = StudyTask.find(params[:id])
-        callback.call(study_task)
-      rescue StandardError
-        render json: { status: 'ERROR', message: 'Resource not found' }, status: :not_found
+        params.permit(:start_point, :end_point, :due_date, :study_plan_id, :is_complete)
       end
     end
   end
