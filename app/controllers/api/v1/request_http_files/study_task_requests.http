@@ -16,14 +16,15 @@ Content-Type: application/json
 }
 
 ### Update
-PUT http://localhost:3000/api/v1/study_tasks/1
+PUT http://localhost:3000/api/v1/study_tasks/551
 Content-Type: application/json
 
 {
     "startPoint": "2",
-    "endPoint": "10",
+    "endPoint": "25",
     "dueDate": "2021-03-25",
-    "studyPlanId": "10"
+    "isComplete": "1"
+
 }
 
 ### Destroy
