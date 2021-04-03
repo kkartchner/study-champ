@@ -35,11 +35,15 @@ module Api
             is_complete = study_task.is_complete == '1'
 
             if is_complete && study_task.end_point > furthest_completed_point
-              study_task.study_plan.update({ furthest_completed_point: study_task.end_point })
+              furthest_completed_point = study_task.end_point
 
             elsif !is_complete && study_task.end_point == furthest_completed_point
               # no longer the furthest, so update to next furthest point
+              furthest_completed_point = StudyTask.where(is_complete: 1).order(:end_point)
+                                                  .last&.end_point || 0
             end
+
+            study_task.study_plan.update({ furthest_completed_point: furthest_completed_point })
 
             render json: { status: 'SUCCESS', message: 'Study task updated', data: study_task },
                    status: :ok
