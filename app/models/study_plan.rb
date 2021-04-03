@@ -2,7 +2,7 @@
 
 class StudyPlan < ApplicationRecord
   has_many :study_tasks, dependent: :delete_all
-  after_save :generate_tasks
+  after_create :generate_tasks
 
   DAYS = %w[sun mon tue wed thu fri sat]
 
@@ -15,20 +15,28 @@ class StudyPlan < ApplicationRecord
                      .compact
   end
 
-  def generate_tasks
+  def remaining_points
+    points - furthest_completed_point
+  end
+
+  def generate_tasks(start_fresh = false)
     return if start_date.blank? || end_date.blank?
 
-    ### Autogenerate study tasks ###
-    # TODO: pull out/modify logic so it first overwrites existing tasks (in the case of
-    # the "start fresh" button)
-
     BusinessTime::Config.work_week = get_study_days
-    study_dates = start_date.business_dates_until(end_date + 1.day)
-    total_study_days = study_dates.length
-    whole_points_per_day = points / total_study_days
-    extra_points = points % total_study_days
 
-    cur_point = 1
+    begin_date = start_fresh ? DateTime.now : start_date
+    study_dates = begin_date.business_dates_until(end_date + 1.day)
+    total_study_days = study_dates.length
+
+    return unless total_study_days.positive?
+
+    whole_points_per_day = remaining_points / total_study_days
+    extra_points = remaining_points % total_study_days
+
+    cur_point = furthest_completed_point + 1
+    task_ids_to_update = study_tasks.where('end_point > ?', cur_point)
+                                    .order(:id).pluck(:id)
+
     study_dates.each do |date|
       points_to_achieve = whole_points_per_day
       if extra_points.positive?
@@ -37,49 +45,38 @@ class StudyPlan < ApplicationRecord
       end
 
       end_point = cur_point + points_to_achieve - 1
-      # creates a study task with current point range
-      study_tasks.create({ start_point: cur_point,
-                           end_point: end_point,
-                           is_complete: 0,
-                           due_date: date })
+      task_id = task_ids_to_update.shift
+      if task_id
+        # update an existing study task
+        study_tasks.find(task_id)
+                   .update_columns(
+                     { start_point: cur_point,
+                       end_point: end_point,
+                       is_complete: 0,
+                       due_date: date }
+                   )
+      else
+        # create a new study task
+        study_tasks.create({ start_point: cur_point,
+                             end_point: end_point,
+                             is_complete: 0,
+                             due_date: date })
+
+      end
 
       cur_point = end_point + 1
 
       # TODO: create subtasks that are tied to the study task (if applicable)
     end
+
+    # destroy remaining study tasks that are no longer needed
+    study_tasks.where(id: task_ids_to_update).destroy_all if task_ids_to_update.present?
 
     update_columns(total_study_days: total_study_days, whole_points_per_day: whole_points_per_day,
                    extra_points: extra_points)
   end
 
   def start_fresh
-    BusinessTime::Config.work_week = study_days
-    study_dates = DateTime.now.business_dates_until(end_date + 1.day)
-    total_study_days = study_dates.length
-
-    return unless total_study_days.positive?
-
-    whole_points_per_day = points / total_study_days
-    extra_points = points % total_study_days
-
-    cur_point = 1
-    study_dates.each do |date|
-      points_to_achieve = whole_points_per_day
-      if extra_points.positive?
-        points_to_achieve += 1
-        extra_points -= 1
-      end
-
-      end_point = cur_point + points_to_achieve - 1
-      # creates a study task with current point range
-      study_tasks.create({ start_point: cur_point,
-                           end_point: end_point,
-                           is_complete: 0,
-                           due_date: date })
-
-      cur_point = end_point + 1
-
-      # TODO: create subtasks that are tied to the study task (if applicable)
-    end
+    generate_tasks(true)
   end
 end

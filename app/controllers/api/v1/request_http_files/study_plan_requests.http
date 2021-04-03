@@ -36,5 +36,5 @@ POST http://localhost:3000/api/v1/study_plans/start_fresh
 Content-Type: application/json
 
 {
-    "id": 28
+    "id": 1
 }

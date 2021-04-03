@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 
 ### Update
-PUT http://localhost:3000/api/v1/study_tasks/551
+PUT http://localhost:3000/api/v1/study_tasks/1196
 Content-Type: application/json
 
 {
@@ -29,3 +29,11 @@ Content-Type: application/json
 
 ### Destroy
 DELETE http://localhost:3000/api/v1/study_tasks/2
+
+### Update isComplete
+PUT http://localhost:3000/api/v1/study_tasks/24
+Content-Type: application/json
+
+{
+    "isComplete": "1"
+}

@@ -51,17 +51,18 @@ module Api
       end
 
       def start_fresh
-        # find_resource(params[:id]) do |_study_plan|
         if params[:id]
           # refresh specific plan with the id
           find_resource(params[:id]) do |study_plan|
             study_plan.start_fresh
+            render json: { status: 'SUCCESS', message: 'Study plan refreshed',
+                           data: { **study_plan.attributes,
+                             study_tasks: study_plan.study_tasks.order(:end_point) } },
+                   status: :ok
           end
         else
           # loop through users plans and start fresh on all of them
         end
-
-        render json: { status: 'SUCCESS', message: 'Study plan refreshed' }
       end
 
       private

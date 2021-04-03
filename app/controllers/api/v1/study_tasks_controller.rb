@@ -31,7 +31,7 @@ module Api
       def update
         find_resource(params[:id]) do |study_task|
           if study_task.update(study_task_params)
-            furthest_completed_point = study_task.study_plan.furthest_completed_point || 0
+            furthest_completed_point = study_task.study_plan.furthest_completed_point
             is_complete = study_task.is_complete == '1'
 
             if is_complete && study_task.end_point > furthest_completed_point
