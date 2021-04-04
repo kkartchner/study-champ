@@ -1,5 +1,6 @@
+import { ListItemIcon, ListItemText, ListItem } from '@material-ui/core';
 import React from 'react';
-import { Card, CardContent, ListItem } from 'ui-neumorphism';
+import { Card, CardContent, Checkbox, Chip } from 'ui-neumorphism';
 
 export default function Task({
   id,
@@ -9,10 +10,13 @@ export default function Task({
   studyPlan: { id: studyPlanId, title }
 }) {
   return (
-    <Card>
-      <CardContent>
-        <ListItem title={`${title} p. ${startPoint} - ${endPoint}`} />
-      </CardContent>
-    </Card>
+    <ListItem>
+      <ListItemIcon>
+        <Checkbox />
+      </ListItemIcon>
+      <ListItemText>
+        {`${title} p. ${startPoint} - ${endPoint} (due: ${dueDate})`}
+      </ListItemText>
+    </ListItem>
   );
 }
