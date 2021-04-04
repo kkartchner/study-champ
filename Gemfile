@@ -38,6 +38,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'debase', '~> 0.2.4'
   gem 'ffaker', '~> 2.18'
+  gem 'graphiql-rails', '~> 1.7'
   gem 'rubocop', '~> 1.12'
   gem 'rubocop-rails', '~> 2.9'
   gem 'ruby-debug-ide', '~> 0.7.2'
@@ -52,3 +53,5 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'business_time', '~> 0.10.0'
 
 gem 'olive_branch'
+
+gem 'graphql', '~> 1.12'
