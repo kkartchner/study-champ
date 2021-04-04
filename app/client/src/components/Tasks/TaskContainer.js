@@ -1,12 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import axios from 'axios';
-import Task from './Task';
-import { ListItemGroup, ProgressCircular } from 'ui-neumorphism';
 import { gql, useQuery } from '@apollo/client';
-import { mdiTranslate } from '@mdi/js';
+import _ from 'lodash';
+import React, { useMemo } from 'react';
 import CenterLoader from '../CenterLoader';
 import TaskGroup from './TaskGroup';
-import _ from 'lodash';
 
 const STUDY_TASKS = gql`
   query GetStudyTasks {

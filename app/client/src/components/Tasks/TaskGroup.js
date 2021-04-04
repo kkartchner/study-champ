@@ -1,14 +1,7 @@
-import React from 'react';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  H6,
-  ListItem
-} from 'ui-neumorphism';
-import dayjs from 'dayjs';
 import { Box, List } from '@material-ui/core';
+import dayjs from 'dayjs';
+import React from 'react';
+import { Card, CardContent, CardHeader, Divider, H6 } from 'ui-neumorphism';
 import Task from './Task';
 
 export default function TaskGroup({ dueDate, tasks }) {
