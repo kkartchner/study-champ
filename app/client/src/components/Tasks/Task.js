@@ -1,11 +1,17 @@
 import React from 'react';
 import { Card, CardContent, ListItem } from 'ui-neumorphism';
 
-export default function Task({ task }) {
+export default function Task({
+  id,
+  startPoint,
+  endPoint,
+  dueDate,
+  studyPlan: { id: studyPlanId, title }
+}) {
   return (
     <Card>
       <CardContent>
-        <ListItem title={`${task.start_point} - ${task.end_point}`} />
+        <ListItem title={`${title} p. ${startPoint} - ${endPoint}`} />
       </CardContent>
     </Card>
   );
