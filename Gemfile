@@ -52,6 +52,5 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'business_time', '~> 0.10.0'
 
-gem 'olive_branch'
 
 gem 'graphql', '~> 1.12'

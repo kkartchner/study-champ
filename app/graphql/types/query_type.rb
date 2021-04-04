@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Types
   class QueryType < Types::BaseObject
     # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
@@ -21,6 +23,16 @@ module Types
 
     def study_tasks
       StudyTask.order(:due_date)
+    end
+
+    field :study_task, StudyTaskType,
+          null: false,
+          description: 'Get study plan with specified id' do
+            argument :id, ID, required: true
+          end
+
+    def study_task(id:)
+      StudyTask.find(id)
     end
   end
 end

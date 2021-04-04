@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Types
   class StudyPlanType < Types::BaseObject
     field :id, ID, null: false, description: 'An example field added by the generator'
