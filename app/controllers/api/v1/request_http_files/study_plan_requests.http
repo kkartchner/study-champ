@@ -1,11 +1,11 @@
 ### Index
-GET http://localhost:3000/api/v1/study_plans
+GET http://localhost:3001/api/v1/study_plans
 
 ### Show
-GET http://localhost:3000/api/v1/study_plans/2
+GET http://localhost:3001/api/v1/study_plans/2
 
 ### Create
-POST http://localhost:3000/api/v1/study_plans
+POST http://localhost:3001/api/v1/study_plans
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ### Update
-PUT http://localhost:3000/api/v1/study_plans/2
+PUT http://localhost:3001/api/v1/study_plans/2
 Content-Type: application/json
 
 {
@@ -29,10 +29,10 @@ Content-Type: application/json
 }
 
 ### Destroy
-DELETE http://localhost:3000/api/v1/study_plans/6
+DELETE http://localhost:3001/api/v1/study_plans/6
 
 ### Start Fresh
-POST http://localhost:3000/api/v1/study_plans/start_fresh
+POST http://localhost:3001/api/v1/study_plans/start_fresh
 Content-Type: application/json
 
 {

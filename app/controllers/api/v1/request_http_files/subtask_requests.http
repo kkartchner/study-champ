@@ -1,11 +1,11 @@
 ### Index
-GET http://localhost:3000/api/v1/subtasks
+GET http://localhost:3001/api/v1/subtasks
 
 ### Show
-GET http://localhost:3000/api/v1/subtasks/1
+GET http://localhost:3001/api/v1/subtasks/1
 
 ### Create
-POST http://localhost:3000/api/v1/subtasks
+POST http://localhost:3001/api/v1/subtasks
 Content-Type: application/json
 
 {
@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ### Update
-PUT http://localhost:3000/api/v1/subtasks/1
+PUT http://localhost:3001/api/v1/subtasks/1
 Content-Type: application/json
 
 {
@@ -23,4 +23,4 @@ Content-Type: application/json
 }
 
 ### Destroy
-DELETE http://localhost:3000/api/v1/subtasks/2
+DELETE http://localhost:3001/api/v1/subtasks/2

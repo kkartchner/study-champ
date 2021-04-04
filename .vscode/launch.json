@@ -21,4 +21,13 @@
             "cwd": "${workspaceRoot}",
         },
     ],
+    "compounds": [
+        {
+            "name": "Server/Client",
+            "configurations": [
+                "Rails server",
+                "Launch Chrome"
+            ]
+        }
+    ]
 }

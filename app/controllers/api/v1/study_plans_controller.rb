@@ -20,7 +20,6 @@ module Api
         study_plan = StudyPlan.new(study_plan_params)
 
         if study_plan.save
-          # TODO: incorporate a translator so api returns data in camelCase
           render json: { status: 'SUCCESS', message: 'Study plan created',
                          data: { **study_plan.attributes, study_tasks: study_plan.study_tasks } },
                  status: :ok
