@@ -4,9 +4,9 @@ class StudyPlan < ApplicationRecord
   has_many :study_tasks, dependent: :delete_all
   after_create :generate_tasks
 
-  DAYS = %w[sun mon tue wed thu fri sat]
+  DAYS = %w[sun mon tue wed thu fri sat].freeze
 
-  def get_study_days
+  def study_days
     ## convert study days string to work week days
     # e.g. # '0111111' => ['mon', 'tue', 'wed', 'thu', 'fri', 'sat']
     # "0101010" => ['mon', 'wed', 'fri']
@@ -19,10 +19,10 @@ class StudyPlan < ApplicationRecord
     points - furthest_completed_point
   end
 
-  def generate_tasks(start_fresh = false)
+  def generate_tasks(start_fresh: false)
     return if start_date.blank? || end_date.blank?
 
-    BusinessTime::Config.work_week = get_study_days
+    BusinessTime::Config.work_week = study_days
 
     begin_date = start_fresh ? DateTime.now : start_date
     study_dates = begin_date.business_dates_until(end_date + 1.day)
@@ -74,9 +74,11 @@ class StudyPlan < ApplicationRecord
 
     update_columns(total_study_days: total_study_days, whole_points_per_day: whole_points_per_day,
                    extra_points: extra_points)
+
+    self
   end
 
   def start_fresh
-    generate_tasks(true)
+    generate_tasks(start_fresh: true)
   end
 end
