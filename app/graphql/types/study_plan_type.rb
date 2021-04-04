@@ -12,5 +12,6 @@ module Types
     field :total_study_days, Integer, null: true
     field :whole_points_per_day, Integer, null: true
     field :extra_points, Integer, null: true
+    field :study_tasks, [StudyTaskType], null: false
   end
 end

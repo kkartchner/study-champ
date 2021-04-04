@@ -7,17 +7,20 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    # TODO: remove me
-    field :test_field, String, null: false,
-                               description: 'An example field added by the generator'
-    def test_field
-      'Hello World!'
-    end
-
-    field :study_plans, [StudyPlanType], null: false, description: 'Get list of all study plans'
+    field :study_plans, [StudyPlanType],
+          null: false,
+          description: 'Get list of all study plans'
 
     def study_plans
-      StudyPlan.all.order('created_at DESC')
+      StudyPlan.order('created_at DESC')
+    end
+
+    field :study_tasks, [StudyTaskType],
+          null: false,
+          description: 'Get list of all study plans'
+
+    def study_tasks
+      StudyTask.order(:due_date)
     end
   end
 end
