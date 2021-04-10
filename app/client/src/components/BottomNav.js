@@ -16,6 +16,7 @@ export default function BottomNav() {
         bottom: 0,
         width: '100%',
         margin: 0,
+        padding: 0,
         height: '8vh'
       }}
       spacing={2}

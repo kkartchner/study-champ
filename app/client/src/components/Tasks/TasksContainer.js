@@ -1,26 +1,12 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import _ from 'lodash';
 import React, { useMemo } from 'react';
+import StudyTaskRequests from '../../graphql/study_task_requests';
 import CenterLoader from '../CenterLoader';
 import TaskGroup from './TaskGroup';
 
-const STUDY_TASKS = gql`
-  query GetStudyTasks {
-    studyTasks {
-      id
-      startPoint
-      endPoint
-      dueDate
-      studyPlan {
-        id
-        title
-      }
-    }
-  }
-`;
-
-export default function Tasks() {
-  const { loading, error, data } = useQuery(STUDY_TASKS);
+export default function TasksContainer() {
+  const { loading, error, data } = useQuery(StudyTaskRequests.GET_ALL);
 
   const groupedTasks = useMemo(
     () => data && _.groupBy(data.studyTasks, 'dueDate'),
@@ -33,7 +19,11 @@ export default function Tasks() {
   return (
     <div>
       {_.map(groupedTasks, (tasks, dueDate) => (
-        <TaskGroup dueDate={dueDate} tasks={tasks} />
+        <TaskGroup
+          key={`taskgroup-${dueDate}`}
+          dueDate={dueDate}
+          tasks={tasks}
+        />
       ))}
     </div>
   );

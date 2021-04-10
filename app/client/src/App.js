@@ -1,22 +1,25 @@
-import { CssBaseline } from '@material-ui/core';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import BottomNav from './components/BottomNav';
-import Plans from './components/Plans/Plans';
-import TaskContainer from './components/Tasks/TaskContainer';
+import PlansContainer from './components/Plans/PlansContainer';
+import TasksContainer from './components/Tasks/TasksContainer';
 import Title from './components/Title';
 
 function App() {
   return (
-    <div style={{ padding: 30 }}>
-      <CssBaseline />
+    <div>
       <BrowserRouter>
         <Switch>
           <Route path='/tasks'>
             <Title title='Tasks' />
-            <TaskContainer />
+            <div style={{ paddingLeft: 30, paddingRight: 30 }}>
+              <TasksContainer />
+            </div>
           </Route>
 
-          <Route path='/plans' component={Plans} />
+          <Route path='/plans'>
+            <Title title='Plans' />
+            <PlansContainer />
+          </Route>
 
           <Route path='/'>
             <Redirect to={'/tasks'} />
