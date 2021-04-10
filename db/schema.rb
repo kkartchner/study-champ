@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 2021_04_03_131420) do
     t.date "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "furthest_completed_point", default: 0
     t.integer "total_study_days"
     t.integer "whole_points_per_day"
     t.integer "extra_points"
+    t.integer "furthest_completed_point", default: 0
   end
 
   create_table "study_tasks", force: :cascade do |t|
