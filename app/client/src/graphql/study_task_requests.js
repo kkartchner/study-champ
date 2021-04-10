@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const GET_ALL = gql`
+const GET_ALL = gql`
   query GetStudyTasks {
     studyTasks {
       id
@@ -16,7 +16,7 @@ export const GET_ALL = gql`
   }
 `;
 
-export const UPDATE = gql`
+const UPDATE = gql`
   mutation UpdateIsComplete($id: ID!, $isComplete: Boolean!) {
     updateStudyTask(id: $id, isComplete: $isComplete) {
       id

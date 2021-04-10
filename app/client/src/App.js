@@ -11,9 +11,7 @@ function App() {
         <Switch>
           <Route path='/tasks'>
             <Title title='Tasks' />
-            <div style={{ paddingLeft: 30, paddingRight: 30 }}>
-              <TasksContainer />
-            </div>
+            <TasksContainer />
           </Route>
 
           <Route path='/plans'>
