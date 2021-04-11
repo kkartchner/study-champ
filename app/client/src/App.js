@@ -20,7 +20,16 @@ function App() {
           </Route>
 
           <Route path='/plans'>
-            <MainPage title='Plans' action={<PlanForm />}>
+            <MainPage
+              title='Plans'
+              action={
+                <PlanForm>
+                  <IconButton rounded text={false}>
+                    <Icon path={mdiPlus} size={1} />
+                  </IconButton>
+                </PlanForm>
+              }
+            >
               <PlansView />
             </MainPage>
           </Route>
