@@ -1,19 +1,8 @@
-import { mdiFormatListChecks } from '@mdi/js';
-import Icon from '@mdi/react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardHeader,
-  Divider,
-  IconButton
-} from 'ui-neumorphism';
-import BottomNav from './components/BottomNav';
-import PlansContainer from './components/Plans/PlansContainer';
-import TasksContainer from './components/Tasks/TasksContainer';
-import Title from './components/Title';
 import 'ui-neumorphism/dist/index.css';
+import PlansView from './components/Plans/PlansView';
+import TasksView from './components/Tasks/TasksView';
+import MainPage from './containers/MainPage';
 
 function App() {
   return (
@@ -21,22 +10,15 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path='/tasks'>
-            <Card flat style={{ margin: 10 }}>
-              <CardHeader>
-                <Title title='Tasks' />
-              </CardHeader>
-              <CardContent style={{ overflowY: 'scroll', height: '78vh' }}>
-                <TasksContainer />
-              </CardContent>
-              <CardAction>
-                <BottomNav />
-              </CardAction>
-            </Card>
+            <MainPage title='Tasks'>
+              <TasksView />
+            </MainPage>
           </Route>
 
           <Route path='/plans'>
-            <Title title='Plans' />
-            <PlansContainer />
+            <MainPage title='Plans'>
+              <PlansView />
+            </MainPage>
           </Route>
 
           <Route path='/'>

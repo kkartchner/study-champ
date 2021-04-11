@@ -4,7 +4,7 @@ import StudyPlanRequests from '../../graphql/study_plan_requests';
 import CenterLoader from '../CenterLoader';
 import PlanCard from './PlanCard';
 
-export default function PlansContainer() {
+export default function PlansView() {
   const { loading, error, data } = useQuery(StudyPlanRequests.GET_ALL);
 
   if (loading) return <CenterLoader />;

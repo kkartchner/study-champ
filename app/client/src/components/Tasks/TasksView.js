@@ -6,7 +6,7 @@ import StudyTaskRequests from '../../graphql/study_task_requests';
 import CenterLoader from '../CenterLoader';
 import TaskGroup from './TaskGroup';
 
-export default function TasksContainer() {
+export default function TasksView() {
   const { loading, error, data } = useQuery(StudyTaskRequests.GET_ALL);
 
   const groupedTasks = useMemo(
