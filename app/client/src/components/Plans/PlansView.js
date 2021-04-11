@@ -5,7 +5,9 @@ import CenterLoader from '../CenterLoader';
 import PlanCard from './PlanCard';
 
 export default function PlansView() {
-  const { loading, error, data } = useQuery(StudyPlanRequests.GET_ALL);
+  const { loading, error, data } = useQuery(StudyPlanRequests.GET_ALL, {
+    fetchPolicy: 'network-only'
+  });
 
   if (loading) return <CenterLoader />;
   if (error) return <p>Error :(</p>;
