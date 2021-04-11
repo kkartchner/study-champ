@@ -12,12 +12,9 @@ export default function BottomNav() {
     <Grid
       container
       style={{
-        position: 'fixed',
-        bottom: 0,
         width: '100%',
         margin: 0,
-        padding: 0,
-        height: '8vh'
+        padding: 0
       }}
       spacing={2}
       justify='center'

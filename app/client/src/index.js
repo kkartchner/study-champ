@@ -1,7 +1,7 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { CssBaseline } from '@material-ui/core';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'ui-neumorphism/dist/index.css';
 import App from './App';
 
 const client = new ApolloClient({
@@ -12,6 +12,7 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
+      <CssBaseline />
       <App />
     </ApolloProvider>
   </React.StrictMode>,
