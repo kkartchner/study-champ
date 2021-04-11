@@ -1,4 +1,4 @@
-import { Grid, Menu } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import {
@@ -35,7 +35,7 @@ export default function PlanCard(props) {
   const percentComplete = (furthestCompletedPoint / points) * 100;
 
   const options = [
-    <PlanForm plan={{ title, points, studyDaysString, startDate, endDate }}>
+    <PlanForm plan={{ id, title, points, studyDaysString, startDate, endDate }}>
       Edit Plan
     </PlanForm>,
     <span>Delete Plan</span>,
@@ -72,7 +72,6 @@ export default function PlanCard(props) {
           </Grid>
         </CardContent>
       </Card>
-      <Menu></Menu>
     </>
   );
 }

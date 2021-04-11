@@ -37,8 +37,8 @@ export default function ThreeDotMenu({ options }) {
         keepMounted
       >
         <Card>
-          {options?.map(option => (
-            <ListItem link onClick={handleClose}>
+          {options?.map((option, index) => (
+            <ListItem key={`list-item-${index}`} link onClick={handleClose}>
               {option}
             </ListItem>
           ))}
