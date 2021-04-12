@@ -15,6 +15,7 @@ export default function Modal({
   children,
   openButton,
   onSubmit = values => alert(JSON.stringify(values)),
+  formProps,
   ...rest
 }) {
   const [open, setOpen] = useState(false);
@@ -29,7 +30,7 @@ export default function Modal({
       <Dialog maxWidth={500} width='90%' visible={open} onClose={onCancel}>
         <Card>
           <CardHeader title={title} />
-          <FForm onSubmit={onSubmit}>
+          <FForm onSubmit={onSubmit} {...formProps}>
             {({ handleSubmit, values }) => (
               <form onSubmit={handleSubmit}>
                 <CardContent>{children}</CardContent>

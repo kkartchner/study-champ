@@ -1,12 +1,7 @@
 import { Grid } from '@material-ui/core';
+import _ from 'lodash';
 import React from 'react';
-import { Field } from 'react-final-form';
-import {
-  Body1,
-  TextField,
-  ToggleButton,
-  ToggleButtonGroup
-} from 'ui-neumorphism';
+import { Body1, ToggleButton } from 'ui-neumorphism';
 import { NTextField, NToggleButtonGroup } from '../FormComponent';
 import Modal from '../Modal';
 
@@ -22,7 +17,23 @@ export default function PlanForm({
 
   return (
     <>
-      <Modal title={`${action} Plan`} openButton={children} onSubmit={onSubmit}>
+      <Modal
+        title={`${action} Plan`}
+        openButton={children}
+        onSubmit={onSubmit}
+        formProps={{
+          initialValues: {
+            ...plan,
+            studyDays:
+              plan &&
+              _.chain(plan.studyDaysString)
+                .split('')
+                .map((num, index) => (num === '1' ? index + 1 : null))
+                .compact()
+                .value()
+          }
+        }}
+      >
         <Grid container justify='center'>
           <Grid item>
             <NTextField name='title' label='Title' />
