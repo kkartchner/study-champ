@@ -7,7 +7,7 @@ import {
   ToggleButton,
   ToggleButtonGroup
 } from 'ui-neumorphism';
-import { NTextField } from '../FormComponent';
+import { NTextField, NToggleButtonGroup } from '../FormComponent';
 import Modal from '../Modal';
 
 export default function PlanForm({
@@ -32,13 +32,13 @@ export default function PlanForm({
           </Grid>
           <Grid item xs={12} style={{ textAlign: 'center', marginBottom: 10 }}>
             <Body1>Study Days</Body1>
-            <ToggleButtonGroup multiple>
+            <NToggleButtonGroup name='studyDays' multiple>
               {'S M T W R F S'.split(' ').map((day, index) => (
                 <ToggleButton key={`toggle-btn-${index}`} value={index + 1}>
                   {day}
                 </ToggleButton>
               ))}
-            </ToggleButtonGroup>
+            </NToggleButtonGroup>
           </Grid>
           <Grid item>
             <NTextField name='startDate' label='Start Date' />

@@ -1,5 +1,5 @@
 import { Field } from 'react-final-form';
-import { TextField } from 'ui-neumorphism';
+import { TextField, ToggleButtonGroup } from 'ui-neumorphism';
 
 export const NTextField = ({ name, label, type }) => (
   <Field name={name}>
@@ -13,6 +13,30 @@ export const NTextField = ({ name, label, type }) => (
           input.onChange(event.value);
         }}
       />
+    )}
+  </Field>
+);
+
+export const NToggleButtonGroup = ({
+  name,
+  label,
+  multiple,
+  children,
+  ...inputProps
+}) => (
+  <Field name={name}>
+    {({ input, meta, ...fieldProps }) => (
+      <ToggleButtonGroup
+        {...input}
+        {...fieldProps}
+        {...inputProps}
+        multiple={multiple}
+        onChange={e => {
+          input.onChange(e.active);
+        }}
+      >
+        {children}
+      </ToggleButtonGroup>
     )}
   </Field>
 );
