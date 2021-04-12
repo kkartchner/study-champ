@@ -1,18 +1,42 @@
+import { useMutation } from '@apollo/client';
 import { Grid } from '@material-ui/core';
 import _ from 'lodash';
 import React from 'react';
 import { Body1, ToggleButton } from 'ui-neumorphism';
+import StudyPlanRequests from '../../graphql/study_plan_requests';
 import { NTextField, NToggleButtonGroup } from '../FormComponent';
 import Modal from '../Modal';
 
+const formatStudyDays = studyDays => {
+  if (typeof studyDays === 'string') {
+    return _.chain(studyDays)
+      .split('')
+      .map((num, index) => (num === '1' ? index + 1 : null))
+      .compact()
+      .value();
+  } else if (Array.isArray(studyDays)) {
+    return _.times(7, i => (studyDays.includes(i + 1) ? 1 : 0)).join('');
+  }
+};
 export default function PlanForm({
   plan,
   children,
   action = plan ? 'Edit' : 'Add',
   ...rest
 }) {
+  const [createStudyPlan, { loading, error, data }] = useMutation(
+    StudyPlanRequests.CREATE
+  );
+
   const onSubmit = values => {
-    alert(JSON.stringify(values));
+    const formattedValues = {
+      ...values,
+      points: parseInt(values.points),
+      studyDaysString: formatStudyDays(values.studyDays)
+    };
+    delete formattedValues.studyDays;
+
+    createStudyPlan({ variables: formattedValues });
   };
 
   return (
@@ -24,13 +48,7 @@ export default function PlanForm({
         formProps={{
           initialValues: {
             ...plan,
-            studyDays:
-              plan &&
-              _.chain(plan.studyDaysString)
-                .split('')
-                .map((num, index) => (num === '1' ? index + 1 : null))
-                .compact()
-                .value()
+            studyDays: plan && formatStudyDays(plan.studyDaysString)
           }
         }}
       >

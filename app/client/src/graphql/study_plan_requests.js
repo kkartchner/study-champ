@@ -1,14 +1,20 @@
 import gql from 'graphql-tag';
 
+const FRAGMENT = gql`
+  fragment StudyPlan on StudyPlan {
+    id
+    title
+    points
+    studyDaysString
+    startDate
+    endDate
+  }
+`;
+
 const GET_ALL = gql`
   query GetStudyPlans {
     studyPlans {
-      id
-      title
-      points
-      studyDaysString
-      startDate
-      endDate
+      ...StudyPlan
       createdAt
       updatedAt
       furthestCompletedPoint
@@ -17,8 +23,29 @@ const GET_ALL = gql`
       extraPoints
     }
   }
+  ${FRAGMENT}
 `;
 
+const CREATE = gql`
+  mutation CreateStudyPlan(
+    $title: String
+    $points: Int
+    $studyDaysString: String
+    $startDate: ISO8601Date
+    $endDate: ISO8601Date
+  ) {
+    createStudyPlan(
+      title: $title
+      points: $points
+      studyDaysString: $studyDaysString
+      startDate: $startDate
+      endDate: $endDate
+    ) {
+      ...StudyPlan
+    }
+  }
+  ${FRAGMENT}
+`;
 // const UPDATE = gql`
 //   mutation UpdateIsComplete($id: ID!, $isComplete: Boolean!) {
 //     updateStudyTask(id: $id, isComplete: $isComplete) {
@@ -28,7 +55,8 @@ const GET_ALL = gql`
 // `;
 
 const StudyPlanRequests = {
-  GET_ALL
+  GET_ALL,
+  CREATE
   // UPDATE
 };
 
