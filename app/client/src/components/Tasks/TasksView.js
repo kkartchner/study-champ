@@ -7,7 +7,9 @@ import CenterLoader from '../CenterLoader';
 import TaskGroup from './TaskGroup';
 
 export default function TasksView() {
-  const { loading, error, data } = useQuery(StudyTaskRequests.GET_ALL);
+  const { loading, error, data } = useQuery(StudyTaskRequests.GET_ALL, {
+    fetchPolicy: 'network-only'
+  });
 
   const groupedTasks = useMemo(
     () => data && _.groupBy(data.studyTasks, 'dueDate'),

@@ -10,40 +10,40 @@ import {
   Dialog
 } from 'ui-neumorphism';
 
-export default function DeleteConfirmation({
+export default function ConfirmationDialog({
   message,
   mutation,
   objectId,
-  openButton,
-  cacheQuery
+  confirmButtonText = 'Confirm',
+  children
 }) {
   const [open, setOpen] = useState(false);
 
   const [performMutation, { loading, error, data }] = useMutation(mutation);
 
-  const onCancel = () => {
+  const handleClose = () => {
     setOpen(false);
   };
 
-  const onDelete = () => {
+  const handleConfirm = () => {
     performMutation({ variables: { id: objectId } });
-    onCancel();
+    handleClose();
   };
 
   return (
     <>
-      <div onClick={() => setOpen(true)}>{openButton}</div>
-      <Dialog maxWidth={500} width='90%' visible={open} onClose={onCancel}>
+      <div onClick={() => setOpen(true)}>{children}</div>
+      <Dialog maxWidth={500} width='90%' visible={open} onClose={handleClose}>
         <Card>
           <CardHeader title={'Are you sure?'} />
           <CardContent>{message}</CardContent>
           <CardAction>
             <Grid container justify='flex-end' spacing={1}>
               <Grid item>
-                <Button onClick={onCancel}>Cancel</Button>
+                <Button onClick={handleClose}>Cancel</Button>
               </Grid>
               <Grid item>
-                <Button onClick={onDelete}>Delete</Button>
+                <Button onClick={handleConfirm}>{confirmButtonText}</Button>
               </Grid>
             </Grid>
           </CardAction>

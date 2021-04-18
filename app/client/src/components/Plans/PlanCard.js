@@ -10,7 +10,7 @@ import {
   ProgressCircular
 } from 'ui-neumorphism';
 import StudyPlanRequests from '../../graphql/study_plan_requests';
-import DeleteConfirmation from '../ConfirmationDialog';
+import ConfirmationDialog from '../ConfirmationDialog';
 import ThreeDotMenu from '../ThreeDotMenu';
 import PlanForm from './PlanForm';
 
@@ -34,20 +34,30 @@ export default function PlanCard(props) {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const percentComplete = (furthestCompletedPoint / points) * 100;
+  const percentComplete = Math.round((furthestCompletedPoint / points) * 100);
 
   const options = [
     <PlanForm plan={{ id, title, points, studyDaysString, startDate, endDate }}>
       Edit Plan
     </PlanForm>,
-    <DeleteConfirmation
-      openButton={<span>Delete Plan</span>}
+    <ConfirmationDialog
       objectId={id}
       mutation={StudyPlanRequests.DELETE}
       cacheQuery={StudyPlanRequests.GET_ALL}
       message='Deleting this study plan is a permanent action.'
-    />,
-    <span>Start Fresh</span>
+      confirmButtonText='Delete'
+    >
+      Delete Plan
+    </ConfirmationDialog>,
+    <ConfirmationDialog
+      objectId={id}
+      mutation={StudyPlanRequests.START_FRESH}
+      cacheQuery={StudyPlanRequests.GET_ALL}
+      message="Starting fresh will recalculate the study tasks from today's date"
+      confirmButtonText='Start Fresh'
+    >
+      Start Fresh
+    </ConfirmationDialog>
   ];
 
   return (

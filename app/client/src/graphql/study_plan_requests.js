@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-const FRAGMENT = gql`
-  fragment StudyPlan on StudyPlan {
+const BASIC_INFO_FRAGMENT = gql`
+  fragment BasicStudyPlan on StudyPlan {
     id
     title
     points
@@ -11,19 +11,26 @@ const FRAGMENT = gql`
   }
 `;
 
+const FULL_PLAN_FRAGMENT = gql`
+  fragment FullStudyPlan on StudyPlan {
+    ...BasicStudyPlan
+    createdAt
+    updatedAt
+    furthestCompletedPoint
+    totalStudyDays
+    wholePointsPerDay
+    extraPoints
+  }
+  ${BASIC_INFO_FRAGMENT}
+`;
+
 const GET_ALL = gql`
   query GetStudyPlans {
     studyPlans {
-      ...StudyPlan
-      createdAt
-      updatedAt
-      furthestCompletedPoint
-      totalStudyDays
-      wholePointsPerDay
-      extraPoints
+      ...FullStudyPlan
     }
   }
-  ${FRAGMENT}
+  ${FULL_PLAN_FRAGMENT}
 `;
 
 const CREATE = gql`
@@ -41,10 +48,10 @@ const CREATE = gql`
       startDate: $startDate
       endDate: $endDate
     ) {
-      ...StudyPlan
+      ...BasicStudyPlan
     }
   }
-  ${FRAGMENT}
+  ${BASIC_INFO_FRAGMENT}
 `;
 
 const DELETE = gql`
@@ -53,6 +60,15 @@ const DELETE = gql`
       id
     }
   }
+`;
+
+const START_FRESH = gql`
+  mutation StartFresh($id: ID) {
+    startFresh(id: $id) {
+      ...FullStudyPlan
+    }
+  }
+  ${FULL_PLAN_FRAGMENT}
 `;
 // const UPDATE = gql`
 //   mutation UpdateIsComplete($id: ID!, $isComplete: Boolean!) {
@@ -65,7 +81,8 @@ const DELETE = gql`
 const StudyPlanRequests = {
   GET_ALL,
   CREATE,
-  DELETE
+  DELETE,
+  START_FRESH
   // UPDATE
 };
 
