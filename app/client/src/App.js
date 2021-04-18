@@ -1,8 +1,12 @@
+import { mdiPlus } from '@mdi/js';
+import Icon from '@mdi/react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import BottomNav from './components/BottomNav';
-import PlansContainer from './components/Plans/PlansContainer';
-import TasksContainer from './components/Tasks/TasksContainer';
-import Title from './components/Title';
+import { IconButton } from 'ui-neumorphism';
+import 'ui-neumorphism/dist/index.css';
+import PlanForm from './components/Plans/PlanForm';
+import PlansView from './components/Plans/PlansView';
+import TasksView from './components/Tasks/TasksView';
+import MainPage from './containers/MainPage';
 
 function App() {
   return (
@@ -10,22 +14,30 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path='/tasks'>
-            <Title title='Tasks' />
-            <div style={{ paddingLeft: 30, paddingRight: 30 }}>
-              <TasksContainer />
-            </div>
+            <MainPage title='Tasks'>
+              <TasksView />
+            </MainPage>
           </Route>
 
           <Route path='/plans'>
-            <Title title='Plans' />
-            <PlansContainer />
+            <MainPage
+              title='Plans'
+              action={
+                <PlanForm>
+                  <IconButton rounded text={false}>
+                    <Icon path={mdiPlus} size={1} />
+                  </IconButton>
+                </PlanForm>
+              }
+            >
+              <PlansView />
+            </MainPage>
           </Route>
 
           <Route path='/'>
             <Redirect to={'/tasks'} />
           </Route>
         </Switch>
-        <BottomNav />
       </BrowserRouter>
     </div>
   );
