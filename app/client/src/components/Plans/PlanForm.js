@@ -70,11 +70,17 @@ export default function PlanForm({
               ))}
             </NToggleButtonGroup>
           </Grid>
-          <Grid item>
-            <NTextField name='startDate' label='Start Date' />
+          <Grid item style={{ textAlign: 'center' }}>
+            <label>
+              Start Date
+              <NTextField name='startDate' type='date' />
+            </label>
           </Grid>
-          <Grid item>
-            <NTextField name='endDate' label='End Date' />
+          <Grid item style={{ textAlign: 'center' }}>
+            <label>
+              End Date
+              <NTextField name='endDate' type='date' />
+            </label>
           </Grid>
         </Grid>
       </Modal>
