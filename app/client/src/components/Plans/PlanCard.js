@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Box, Divider, Grid } from '@material-ui/core';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import {
@@ -63,11 +63,24 @@ export default function PlanCard(props) {
   return (
     <>
       <Card>
-        <CardHeader
-          title={<H6>{title}</H6>}
-          action={<ThreeDotMenu options={options} />}
-          style={{ marginBottom: -10 }}
-        />
+        <CardHeader style={{ paddingTop: 5 }}>
+          <Grid container alignItems='center'>
+            <Grid item xs={6}>
+              <H6>{title}</H6>
+            </Grid>
+            <Grid item xs={5} style={{ textAlign: 'right' }}>
+              <H6 secondary>
+                {[
+                  dayjs(startDate).format('M/D/YY'),
+                  dayjs(endDate).format('M/D/YY')
+                ].join(' - ')}
+              </H6>
+            </Grid>
+            <Grid item xs={1}>
+              <ThreeDotMenu options={options} />
+            </Grid>
+          </Grid>
+        </CardHeader>
         <CardContent style={{ paddingBottom: 10 }}>
           <Grid container justify='space-around' alignItems='center'>
             <Grid item>
