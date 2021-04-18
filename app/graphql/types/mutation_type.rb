@@ -5,5 +5,6 @@ module Types
     field :start_fresh, mutation: Mutations::StartFresh
     field :update_study_task, mutation: Mutations::UpdateStudyTask
     field :create_study_plan, mutation: Mutations::CreateStudyPlan
+    field :delete_study_plan, mutation: Mutations::DeleteStudyPlan
   end
 end

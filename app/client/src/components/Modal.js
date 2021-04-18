@@ -20,24 +20,29 @@ export default function Modal({
 }) {
   const [open, setOpen] = useState(false);
 
-  const onCancel = () => {
+  const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleSubmit = values => {
+    onSubmit(values);
+    handleClose();
   };
 
   return (
     <>
       <div onClick={() => setOpen(true)}>{openButton}</div>
-      <Dialog maxWidth={500} width='90%' visible={open} onClose={onCancel}>
+      <Dialog maxWidth={500} width='90%' visible={open} onClose={handleClose}>
         <Card>
           <CardHeader title={title} />
-          <FForm onSubmit={onSubmit} {...formProps}>
+          <FForm onSubmit={handleSubmit} {...formProps}>
             {({ handleSubmit, values }) => (
               <form onSubmit={handleSubmit}>
                 <CardContent>{children}</CardContent>
                 <CardAction>
                   <Grid container justify='flex-end' spacing={1}>
                     <Grid item>
-                      <Button onClick={onCancel}>Cancel</Button>
+                      <Button onClick={handleClose}>Cancel</Button>
                     </Grid>
                     <Grid item>
                       <Button onClick={handleSubmit}>Submit</Button>

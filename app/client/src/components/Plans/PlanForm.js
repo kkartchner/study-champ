@@ -18,13 +18,14 @@ const formatStudyDays = studyDays => {
     return _.times(7, i => (studyDays.includes(i + 1) ? 1 : 0)).join('');
   }
 };
+
 export default function PlanForm({
   plan,
   children,
   action = plan ? 'Edit' : 'Add',
   ...rest
 }) {
-  const [createStudyPlan, { loading, error, data }] = useMutation(
+  const [addStudyPlan, { loading, error, data }] = useMutation(
     StudyPlanRequests.CREATE
   );
 
@@ -36,7 +37,7 @@ export default function PlanForm({
     };
     delete formattedValues.studyDays;
 
-    createStudyPlan({ variables: formattedValues });
+    addStudyPlan({ variables: formattedValues });
   };
 
   return (

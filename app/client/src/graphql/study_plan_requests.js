@@ -46,6 +46,14 @@ const CREATE = gql`
   }
   ${FRAGMENT}
 `;
+
+const DELETE = gql`
+  mutation DeleteStudyPlan($id: ID!) {
+    deleteStudyPlan(id: $id) {
+      id
+    }
+  }
+`;
 // const UPDATE = gql`
 //   mutation UpdateIsComplete($id: ID!, $isComplete: Boolean!) {
 //     updateStudyTask(id: $id, isComplete: $isComplete) {
@@ -56,7 +64,8 @@ const CREATE = gql`
 
 const StudyPlanRequests = {
   GET_ALL,
-  CREATE
+  CREATE,
+  DELETE
   // UPDATE
 };
 

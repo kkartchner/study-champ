@@ -9,6 +9,8 @@ import {
   H6,
   ProgressCircular
 } from 'ui-neumorphism';
+import StudyPlanRequests from '../../graphql/study_plan_requests';
+import DeleteConfirmation from '../ConfirmationDialog';
 import ThreeDotMenu from '../ThreeDotMenu';
 import PlanForm from './PlanForm';
 
@@ -38,7 +40,13 @@ export default function PlanCard(props) {
     <PlanForm plan={{ id, title, points, studyDaysString, startDate, endDate }}>
       Edit Plan
     </PlanForm>,
-    <span>Delete Plan</span>,
+    <DeleteConfirmation
+      openButton={<span>Delete Plan</span>}
+      objectId={id}
+      mutation={StudyPlanRequests.DELETE}
+      cacheQuery={StudyPlanRequests.GET_ALL}
+      message='Deleting this study plan is a permanent action.'
+    />,
     <span>Start Fresh</span>
   ];
 
