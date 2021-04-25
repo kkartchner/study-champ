@@ -25,19 +25,22 @@ export default function PlanForm({
   action = plan ? 'Edit' : 'Add',
   ...rest
 }) {
-  const [addStudyPlan, { loading, error, data }] = useMutation(
-    StudyPlanRequests.CREATE
+  const [studyPlanMutation, studyPlanMutationResponse] = useMutation(
+    StudyPlanRequests.CREATE_OR_UPDATE
   );
 
   const onSubmit = values => {
     const formattedValues = {
       ...values,
+      id: parseInt(values.id),
       points: parseInt(values.points),
       studyDaysString: formatStudyDays(values.studyDays)
     };
     delete formattedValues.studyDays;
 
-    addStudyPlan({ variables: formattedValues });
+    studyPlanMutation({ variables: formattedValues }).then(() => {
+      window.location.reload(); // TODO: Replace with a component reload instead
+    });
   };
 
   return (
@@ -58,7 +61,7 @@ export default function PlanForm({
             <NTextField name='title' label='Title' />
           </Grid>
           <Grid item>
-            <NTextField name='points' label='Points' type='number' />
+            <NTextField name='points' label='Pages' type='number' />
           </Grid>
           <Grid item xs={12} style={{ textAlign: 'center', marginBottom: 10 }}>
             <Body1>Study Days</Body1>

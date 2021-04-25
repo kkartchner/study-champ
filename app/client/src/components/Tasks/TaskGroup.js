@@ -26,7 +26,10 @@ export default function TaskGroup({ dueDate, tasks }) {
       <CardContent>
         <List style={{ marginTop: -15 }}>
           {tasks.map(task => (
-            <Task key={`task-${task.id}`} {...task} />
+            <>
+              <Task key={`task-${task.id}`} {...task} />
+              <Divider dense />
+            </>
           ))}
         </List>
       </CardContent>

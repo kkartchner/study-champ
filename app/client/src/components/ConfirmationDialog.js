@@ -26,7 +26,9 @@ export default function ConfirmationDialog({
   };
 
   const handleConfirm = () => {
-    performMutation({ variables: { id: objectId } });
+    performMutation({ variables: { id: objectId } }).then(() => {
+      window.location.reload(); // TODO: Replace with a component reload instead
+    });
     handleClose();
   };
 
