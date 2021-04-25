@@ -20,7 +20,7 @@ export default function Task({
   isComplete,
   ...rest
 }) {
-  const [updateStudyTask, { loading, error, data }] = useMutation(
+  const [updateStudyTask, { loading, error }] = useMutation(
     StudyTaskRequests.UPDATE
   );
   const toggleIsComplete = e => {
@@ -30,7 +30,9 @@ export default function Task({
   return (
     <>
       <ListItem>
-        <ListItemText>
+        <ListItemText
+          style={{ textDecoration: isComplete ? 'line-through' : '' }}
+        >
           {`${title} p. ${startPoint} - ${endPoint} (${
             endPoint - startPoint + 1
           } pages)`}

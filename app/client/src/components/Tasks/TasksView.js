@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import _ from 'lodash';
 import React, { useMemo } from 'react';
-import { Card } from 'ui-neumorphism';
+import { Card, H6 } from 'ui-neumorphism';
 import StudyTaskRequests from '../../graphql/study_task_requests';
 import CenterLoader from '../CenterLoader';
 import TaskGroup from './TaskGroup';
@@ -21,13 +21,19 @@ export default function TasksView() {
 
   return (
     <>
-      {_.map(groupedTasks, (tasks, dueDate) => (
-        <TaskGroup
-          key={`taskgroup-${dueDate}`}
-          dueDate={dueDate}
-          tasks={tasks}
-        />
-      ))}
+      {data.studyTasks.length ? (
+        _.map(groupedTasks, (tasks, dueDate) => (
+          <TaskGroup
+            key={`taskgroup-${dueDate}`}
+            dueDate={dueDate}
+            tasks={tasks}
+          />
+        ))
+      ) : (
+        <H6 style={{ width: '100%', textAlign: 'center' }}>
+          No Tasks. Add a plan to generate some!
+        </H6>
+      )}
     </>
   );
 }

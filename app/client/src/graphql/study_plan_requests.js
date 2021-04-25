@@ -33,15 +33,17 @@ const GET_ALL = gql`
   ${FULL_PLAN_FRAGMENT}
 `;
 
-const CREATE = gql`
-  mutation CreateStudyPlan(
+const CREATE_OR_UPDATE = gql`
+  mutation StudyPlan(
+    $id: Int
     $title: String
     $points: Int
     $studyDaysString: String
     $startDate: ISO8601Date
     $endDate: ISO8601Date
   ) {
-    createStudyPlan(
+    studyPlan(
+      id: $id
       title: $title
       points: $points
       studyDaysString: $studyDaysString
@@ -70,20 +72,12 @@ const START_FRESH = gql`
   }
   ${FULL_PLAN_FRAGMENT}
 `;
-// const UPDATE = gql`
-//   mutation UpdateIsComplete($id: ID!, $isComplete: Boolean!) {
-//     updateStudyTask(id: $id, isComplete: $isComplete) {
-//       id
-//     }
-//   }
-// `;
 
 const StudyPlanRequests = {
   GET_ALL,
-  CREATE,
+  CREATE_OR_UPDATE,
   DELETE,
   START_FRESH
-  // UPDATE
 };
 
 export default StudyPlanRequests;
