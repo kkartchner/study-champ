@@ -1,24 +1,3 @@
-# README
+# Overview
+Become a champion student by studying a little bit each day! Science shows that we retain more if we study each day and sleep on it, rather than cramming right before finals. Study Champ will help you accomplish this by breaking up reading assignments into equal chunks for each “study day” you have selected on a plan. If you get behind, you can always press the “start fresh” button, which recalculates the number of pages needed each study day in order to reach your study goal.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
